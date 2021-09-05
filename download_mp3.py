@@ -9,7 +9,7 @@ def get_video_info(video_url=None):
         video_info = youtube_dl.YoutubeDL().extract_info(url=video_url, download=False)
         return video_info
     except Exception as e:
-        print(e)
+        print(f"[ERROR] Could not retrieve the video information....\n{e}")
 
 
 def download_video(video_info):
@@ -33,7 +33,7 @@ def download_video(video_info):
             else:
                 print(f"{filename} not found !!!")
     except Exception as e:
-        print(f"Exception occurred inside video_download() \n{e}")
+        print(f"[ERROR] Exception occurred inside video_download() \n{e}")
 
 
 def load_links_file(file_path=None):
@@ -43,14 +43,15 @@ def load_links_file(file_path=None):
             urls_filtered = [url.split("&")[0] for url in urls]
             return urls_filtered
     except Exception as e:
-        print(e)
+        print(f"[ERROR] Exception on load_links_file()\n{e}")
         return None
 
 
 def convert_webm_mp3(filename):
     song = AudioSegment.from_file(filename, "webm")
     song.export(filename.replace("webm", "mp3"),
-                format="mp3", bitrate='320k')
+                format="mp3", 
+                bitrate='320k')
 
 
 if __name__ == "__main__":
