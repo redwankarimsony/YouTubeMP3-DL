@@ -3,9 +3,9 @@ import youtube_dl
 from pydub import AudioSegment
 AudioSegment.converter = '/opt/homebrew/bin/ffmpeg'
 
+
 def get_video_info(video_url=None):
     try:
-        print(video_url)
         video_info = youtube_dl.YoutubeDL().extract_info(url=video_url, download=False)
         return video_info
     except Exception as e:
@@ -50,7 +50,7 @@ def load_links_file(file_path=None):
 def convert_webm_mp3(filename):
     song = AudioSegment.from_file(filename, "webm")
     song.export(filename.replace("webm", "mp3"),
-                format="mp3", 
+                format="mp3",
                 bitrate='320k')
 
 
@@ -58,4 +58,3 @@ if __name__ == "__main__":
     for video_url in load_links_file(file_path="url_list.txt"):
         video_info = get_video_info(video_url)
         download_video(video_info)
-
